@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List movies = [];
+  String pathImage = "https://image.tmdb.org/t/p/w500";
 
   @override
   initState() {
@@ -62,40 +63,106 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage("https://scontent.flim17-1.fna.fbcdn.net/v/t1.6435-9/31901792_10155604559952404_6647269739548639232_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeFkeP-CpRu_qeFblnGYUTeWblELhUOs-QluUQuFQ6z5CQeFgI_z74DcX6j11Gy1rok&_nc_ohc=rYa_E--zj7EAX84c02A&_nc_ht=scontent.flim17-1.fna&oh=005bb7d2e9127a9d7cfdd3c2761f7a20&oe=61A78EF9"),
+                    backgroundImage: NetworkImage(
+                        "https://scontent.flim17-1.fna.fbcdn.net/v/t1.6435-9/31901792_10155604559952404_6647269739548639232_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeFkeP-CpRu_qeFblnGYUTeWblELhUOs-QluUQuFQ6z5CQeFgI_z74DcX6j11Gy1rok&_nc_ohc=rYa_E--zj7EAX84c02A&_nc_ht=scontent.flim17-1.fna&oh=005bb7d2e9127a9d7cfdd3c2761f7a20&oe=61A78EF9"),
                   ),
-                  Text("Gian Carlos",style: TextStyle(fontSize: 18),),
-                  Text("Editor", style: TextStyle(fontSize: 13.0,color: Colors.white70),)
+                  Text(
+                    "Gian Carlos",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    "Editor",
+                    style: TextStyle(fontSize: 13.0, color: Colors.white70),
+                  )
                 ],
               ),
             ),
-
             ListTile(
               title: Text("Peliculas"),
               trailing: Icon(Icons.movie),
-              onTap: (){},
+              onTap: () {},
             ),
             ListTile(
               title: Text("Televisión"),
               trailing: Icon(Icons.tv),
-              onTap: (){},
+              onTap: () {},
             ),
             Divider(
               thickness: 0.9,
             ),
-
             ListTile(
               title: Text("Cerrar Sesión"),
               trailing: Icon(Icons.exit_to_app),
-              onTap: (){},
+              onTap: () {},
             ),
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), label: "Favoritos"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.thumb_up), label: "Me gusta"),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.all_inclusive),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 14.0),
           child: Column(
-            children: [],
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Top Movies",
+                style: TextStyle(
+                    fontSize: 40,
+                    color: Theme.of(context).accentColor,
+                    fontWeight: FontWeight.w500),
+              ),
+              ListView.builder(
+                primary: true,
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                itemCount: movies.length,
+                itemBuilder: (BuildContext context, int index) {
+                  String urlImage = pathImage + movies[index]["poster_path"];
+                  print(urlImage);
+
+                  return Row(
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        margin: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(urlImage),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(movies[index]["original_title"]),
+                              Text(movies[index]["overview"],maxLines: 3,overflow: TextOverflow.ellipsis,)
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
+              )
+            ],
           ),
         ),
       ),

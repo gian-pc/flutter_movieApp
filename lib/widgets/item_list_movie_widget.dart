@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_codigo3_movieapp/models/movie_model.dart';
-import 'package:flutter_codigo3_movieapp/pages/detail_movie.dart';
+import 'package:flutter_codigo3_movieapp/pages/detail_movie_page.dart';
 import 'package:flutter_codigo3_movieapp/utils/constantes.dart';
 
 class ItemListMovieWidget extends StatelessWidget {
@@ -17,7 +17,7 @@ class ItemListMovieWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailMoviePage(),
+            builder: (context) => DetailMoviePage(movie: movie,),
           ),
         );
       },

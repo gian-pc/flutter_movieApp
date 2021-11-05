@@ -15,12 +15,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //List movies = [];
   List<Movie> movies = [];
+  ScrollController _scrollController = new ScrollController();
 
 
   @override
   initState() {
     super.initState();
     getDataMovie();
+    _scrollController.addListener(() {
+      if(_scrollController.position.pixels==_scrollController.position.maxScrollExtent){
+        print("Estas en la parte final");
+      }
+
+    });
   }
 
   getDataMovie() async {
@@ -67,34 +74,40 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.all_inclusive),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 14.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Top Movies",
-                style: TextStyle(
-                    fontSize: 40,
-                    color: Theme.of(context).accentColor,
-                    fontWeight: FontWeight.w500),
-              ),
-              ListView.builder(
-                primary: true,
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                itemCount: movies.length,
-                itemBuilder: (BuildContext context, int index) {
+        child: RefreshIndicator(
+          onRefresh: ()async{
 
-                  Movie myMovie = movies[index];
+          },
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            padding: EdgeInsets.symmetric(horizontal: 14.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Top Movies",
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w500),
+                ),
+                ListView.builder(
+                  primary: true,
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: movies.length,
+                  itemBuilder: (BuildContext context, int index) {
 
-                  return ItemListMovieWidget(
-                    movie: myMovie,
-                  );
+                    Movie myMovie = movies[index];
 
-                },
-              )
-            ],
+                    return ItemListMovieWidget(
+                      movie: myMovie,
+                    );
+
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

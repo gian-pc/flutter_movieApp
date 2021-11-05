@@ -35,18 +35,31 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
     if(response.statusCode == 200){
       Map<String,dynamic>myMap=json.decode(response.body);
       movieDetail = MovieDetail.fromJson(myMap);
-      print(movieDetail!.originalTitle);
+      setState(() {
+
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Example"),
-      ),
-      body: Center(
-        child: Text(widget.movie.title),
+
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
+          return<Widget>[
+            SliverAppBar(
+              expandedHeight: 260,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text("Mi Pelicula favorita"),
+                background: Image.network(("https://static8.depositphotos.com/1160465/822/i/600/depositphotos_8228852-stock-photo-full-color-old-wood-room.jpg")),
+              ),
+            ),
+          ];
+        },
+        body: SafeArea(
+          child: Container(),
+        ),
       ),
     );
   }

@@ -103,7 +103,8 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                       delegate: SliverChildListDelegate(
                         [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: Row(
                               children: [
                                 Container(
@@ -117,19 +118,26 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                                               movieDetail!.posterPath))),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(movieDetail!.originalTitle,
                                           style: TextStyle(fontSize: 22.0)),
                                       SizedBox(height: 4.0),
                                       Text("(${movieDetail!.title})",
-                                          style: TextStyle(fontSize: 12.0)),
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.white54)),
                                       SizedBox(height: 6.0),
                                       Row(
                                         children: [
-                                          Icon(Icons.date_range, size: 15,),
+                                          Icon(
+                                            Icons.date_range,
+                                            size: 15,
+                                          ),
                                           Text(movieDetail!.releaseDate
                                               .toString()
                                               .substring(0, 10)),
@@ -139,20 +147,80 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                                       Row(
                                         children: [
                                           Icon(Icons.timer, size: 15),
-                                          Text("${movieDetail!.runtime.toString()} min."),
+                                          Text(
+                                              "${movieDetail!.runtime.toString()} min."),
                                         ],
                                       ),
                                       SizedBox(height: 6.0),
                                       Row(
                                         children: [
                                           Icon(Icons.star, size: 15),
-                                          Text("${movieDetail!.voteAverage.toString()}"),
+                                          Text(
+                                              "${movieDetail!.voteAverage.toString()}"),
                                         ],
                                       ),
                                     ],
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          SizedBox(height: 12.0),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: ElevatedButton.icon(
+                              icon: Icon(Icons.add),
+                              onPressed: () {},
+                              label: Container(
+                                margin: EdgeInsets.symmetric(vertical: 16.0),
+                                child: Text(
+                                  "Add to watchList",
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  elevation: 8,
+                                  shadowColor:
+                                      Color(0xffFF9F02).withOpacity(0.9),
+                                  primary: Color(0xffFF9F02)),
+                            ),
+                          ),
+                          SizedBox(height: 18),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Text(
+                              "Overview",
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6.0),
+                            child: Text(
+                              movieDetail!.overview,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 18.0),
+                          Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Text(
+                              "Genres",
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],
